@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07143f">
+  <title>Ranfy — Avaliação do projeto</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page">
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="brand brand-image" href="index.html" aria-label="SENAI, início"><img src="assets/senai.png" alt="SENAI"></a>
+      <div class="header-meta"><span class="greeting" data-participant-name>visitante</span><span class="event-label">MUNDO SENAI <span class="tiny-pixel" aria-hidden="true"></span></span></div>
+    </header>
+    <main class="evaluation-main">
+      <a class="back-link" href="qrcode.html"><span aria-hidden="true">◀</span> Voltar</a>
+      <section class="evaluation-intro">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> FASE 3 · SUA NOTA</span>
+        <h1>Conte para nós o que você <span class="text-accent">achou.</span></h1>
+        <div class="project-summary">
+          <div class="project-icon" aria-hidden="true">★</div>
+          <div>
+            <span class="summary-label">PROJETO</span>
+            <strong id="project-name">Carregando...</strong>
+            <span class="project-subtitle" id="project-code-label"></span>
+          </div>
+        </div>
+      </section>
+
+      <form id="evaluation-form" class="evaluation-form">
+        <fieldset class="question">
+          <legend><span class="question-number">01</span><span>Como você avalia esta apresentação?<span class="required-mark" aria-hidden="true">*</span></span></legend>
+          <div class="rating-scale">
+            <label class="rating-option"><input type="radio" name="avaliacao_geral" value="1" required><span>1</span></label>
+            <label class="rating-option"><input type="radio" name="avaliacao_geral" value="2"><span>2</span></label>
+            <label class="rating-option"><input type="radio" name="avaliacao_geral" value="3"><span>3</span></label>
+            <label class="rating-option"><input type="radio" name="avaliacao_geral" value="4"><span>4</span></label>
+            <label class="rating-option"><input type="radio" name="avaliacao_geral" value="5"><span>5</span></label>
+          </div>
+          <div class="scale-captions"><span>Poderia melhorar</span><span>Excelente</span></div>
+        </fieldset>
+
+        <fieldset class="question">
+          <legend><span class="question-number">02</span><span>O quanto este projeto se destacou pela criatividade?<span class="required-mark" aria-hidden="true">*</span></span></legend>
+          <div class="rating-scale">
+            <label class="rating-option"><input type="radio" name="criatividade" value="1" required><span>1</span></label>
+            <label class="rating-option"><input type="radio" name="criatividade" value="2"><span>2</span></label>
+            <label class="rating-option"><input type="radio" name="criatividade" value="3"><span>3</span></label>
+            <label class="rating-option"><input type="radio" name="criatividade" value="4"><span>4</span></label>
+            <label class="rating-option"><input type="radio" name="criatividade" value="5"><span>5</span></label>
+          </div>
+          <div class="scale-captions"><span>Pouco</span><span>Muito</span></div>
+        </fieldset>
+
+        <fieldset class="question">
+          <legend><span class="question-number">03</span><span>Qual é o potencial deste projeto para fazer a diferença?<span class="required-mark" aria-hidden="true">*</span></span></legend>
+          <div class="rating-scale">
+            <label class="rating-option"><input type="radio" name="impacto" value="1" required><span>1</span></label>
+            <label class="rating-option"><input type="radio" name="impacto" value="2"><span>2</span></label>
+            <label class="rating-option"><input type="radio" name="impacto" value="3"><span>3</span></label>
+            <label class="rating-option"><input type="radio" name="impacto" value="4"><span>4</span></label>
+            <label class="rating-option"><input type="radio" name="impacto" value="5"><span>5</span></label>
+          </div>
+          <div class="scale-captions"><span>Baixo</span><span>Alto</span></div>
+        </fieldset>
+
+        <div class="question comment-question">
+          <label class="comment-label" for="comentario"><span class="question-number">04</span><span>Quer deixar alguma sugestão?<small>Opcional</small></span></label>
+          <textarea id="comentario" name="comentario" rows="4" maxlength="500" placeholder="Compartilhe uma ideia com a equipe..."></textarea>
+          <div class="character-count">Até 500 caracteres</div>
+        </div>
+
+        <button type="submit" class="button button-primary button-wide submit-button">Enviar avaliação <span class="button-arrow" aria-hidden="true">▶</span></button>
+        <p class="submit-note">Suas respostas ajudam a reconhecer novas ideias.</p>
+      </form>
+    </main>
+    <footer class="app-footer"><span>SUA NOTA</span><span class="footer-line"></span><span class="footer-index">03 <span>/</span> 04</span></footer>
+  </div>
+  <script src="js/config.js"></script>
+  <script src="js/avaliar.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
