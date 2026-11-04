@@ -53,6 +53,21 @@
 
 
 
+  // Código de acesso ao dashboard: validado no servidor, nunca aqui.
+  async function tentarDashboard(codigo) {
+    try {
+      const r = await fetch(`${window.RANFY_API_URL}/api/dashboard/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ codigo })
+      });
+      if (!r.ok) return false;
+      sessionStorage.setItem("ranfy_admin", codigo);
+      window.location.href = "dashboard.html";
+      return true;
+    } catch { return false; }
+  }
+
   async function validarCodigo(texto, origem = "camera") {
     if (processando) return;
 
@@ -108,6 +123,7 @@
       const dados = await resposta.json().catch(() => ({}));
 
       if (resposta.status === 404) {
+        if (await tentarDashboard(codigo)) return;
         informar(
           `O código "${codigo}" não foi encontrado. Confira o conteúdo do QR Code.`,
           "error"
