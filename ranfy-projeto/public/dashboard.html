@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07143f">
+  <meta name="robots" content="noindex">
+  <title>Ranfy — Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .dash-main{flex:1;padding:30px 0 56px}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:30px 0}
+    .kpi{padding:16px;background:#fff;box-shadow:var(--box);display:grid;gap:6px}
+    .kpi span{font-family:var(--font-title);font-size:.55rem;color:var(--blue)}
+    .kpi strong{font-size:2rem;color:var(--blue-dark)}
+    .painel{margin:30px 0;padding:20px;background:#fff;box-shadow:var(--box)}
+    .painel h2{margin:0 0 16px;font-size:1.2rem;color:var(--blue-dark)}
+    .painel .caixa{position:relative;height:300px}
+    .comentario{padding:12px 0;border-top:3px dashed #a9c1ef}
+    .comentario small{display:block;color:var(--muted)}
+    .comentario p{margin:6px 0 0;overflow-wrap:anywhere}
+    .dash-topo{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .dash-topo .button{min-height:46px;font-size:1rem}
+    @media(max-width:760px){.kpis{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="page">
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="brand brand-image" href="index.html" aria-label="SENAI, início"><img src="assets/senai.png" alt="SENAI"></a>
+      <div class="header-meta"><span class="greeting" data-participant-name>visitante</span><span class="event-label">MUNDO SENAI <span class="tiny-pixel" aria-hidden="true"></span></span></div>
+    </header>
+    <main class="dash-main">
+      <div class="dash-topo">
+        <h1>Resultados</h1>
+        <div style="display:flex;gap:12px">
+          <button class="button button-secondary" id="atualizar" type="button">Atualizar</button>
+          <button class="button button-secondary" id="sair" type="button">Sair</button>
+        </div>
+      </div>
+      <p id="dash-status" class="scanner-hint" role="status" style="justify-content:flex-start">Carregando...</p>
+
+      <section class="kpis">
+        <div class="kpi"><span>AVALIAÇÕES</span><strong id="kpi-total">–</strong></div>
+        <div class="kpi"><span>PROJETOS AVALIADOS</span><strong id="kpi-projetos">–</strong></div>
+        <div class="kpi"><span>MÉDIA GERAL (1 A 5)</span><strong id="kpi-media">–</strong></div>
+      </section>
+
+      <section class="painel"><h2>Ranking pela média geral</h2><div class="caixa" id="caixa-ranking"><canvas id="grafico-ranking"></canvas></div></section>
+      <section class="painel"><h2>Média por critério</h2><div class="caixa" id="caixa-criterios"><canvas id="grafico-criterios"></canvas></div></section>
+      <section class="painel"><h2>Quantidade de avaliações por projeto</h2><div class="caixa" id="caixa-total"><canvas id="grafico-total"></canvas></div></section>
+      <section class="painel"><h2>Últimas sugestões</h2><div id="comentarios"></div></section>
+    </main>
+    <footer class="app-footer"><span>ÁREA RESTRITA</span><span class="footer-line"></span></footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
