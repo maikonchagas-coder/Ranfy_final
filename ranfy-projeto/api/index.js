@@ -31,7 +31,7 @@ async function listarProjetos() {
 app.get("/api/saude", async (req, res) => {
   try {
     await pool.query("SELECT 1");
-     res.json({ ok: true, banco: "conectado", dashboard: Boolean(process.env.DASHBOARD_CODE) });
+     res.json({ ok: true, banco: "conectado", dashboard: Boolean(process.env.DASHBOARD_CODE)});
   } catch (e) {
     console.error(e);
     res.status(500).json({ ok: false, erro: "Sem conexão com o banco." });
