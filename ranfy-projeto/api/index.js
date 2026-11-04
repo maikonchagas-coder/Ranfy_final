@@ -92,6 +92,48 @@ app.post("/api/avaliacoes", async (req, res) => {
   }
 });
 
+// ---- Dashboard protegido por código (defina DASHBOARD_CODE na Vercel) ----
+const crypto = require("crypto");
+function codigoAdminOk(c) {
+  const real = norm(process.env.DASHBOARD_CODE), dado = norm(c);
+  if (!real || !dado) return false;
+  const h = v => crypto.createHash("sha256").update(v).digest();
+  return crypto.timingSafeEqual(h(dado), h(real));
+}
+
+app.post("/api/dashboard/login", (req, res) => {
+  if (!codigoAdminOk(req.body && req.body.codigo)) return res.status(401).json({ erro: "Código inválido." });
+  res.json({ ok: true });
+});
+
+app.get("/api/dashboard", async (req, res) => {
+  if (!codigoAdminOk(req.get("x-dashboard-code"))) return res.status(401).json({ erro: "Acesso negado." });
+  try {
+    const projetos = await listarProjetos();
+    const { rows } = await pool.query(
+      `SELECT projeto_codigo, COUNT(*)::int AS total,
+              AVG(nota_1)::float8 AS m1, AVG(nota_2)::float8 AS m2, AVG(nota_3)::float8 AS m3
+       FROM ${TABELA_AVALIACOES} GROUP BY projeto_codigo`
+    );
+    const por = Object.fromEntries(rows.map(r => [norm(r.projeto_codigo), r]));
+    const lista = projetos.map(p => {
+      const r = por[norm(p.codigo)] || { total: 0, m1: 0, m2: 0, m3: 0 };
+      return { codigo: p.codigo, nome: p.nome, area: p.area, total: r.total,
+               m1: r.m1, m2: r.m2, m3: r.m3, media: (r.m1 + r.m2 + r.m3) / 3 };
+    });
+    const totalGeral = lista.reduce((s, p) => s + p.total, 0);
+    const mediaGeral = totalGeral ? lista.reduce((s, p) => s + p.media * p.total, 0) / totalGeral : 0;
+    const com = await pool.query(
+      `SELECT projeto_codigo, participante, comentario, criado_em FROM ${TABELA_AVALIACOES}
+       WHERE comentario IS NOT NULL AND comentario <> '' ORDER BY criado_em DESC LIMIT 20`
+    );
+    res.json({ projetos: lista, totalGeral, mediaGeral, comentarios: com.rows });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ erro: "Erro ao montar o dashboard." });
+  }
+});
+
 module.exports = app;
 
 // Rodando localmente (npm start): também serve o site da pasta public.
